@@ -57,6 +57,7 @@ std::unique_ptr<T> make_unique2(U&&... u)
     return std::unique_ptr<T>(new T(std::forward<U>(u)...));
 }
 
+
 int main()
 {
     // moving objects
@@ -69,7 +70,9 @@ int main()
     auto p1 = make_unique1<A>(2); // rvalue;
     int i = 1;
     auto p2 = make_unique1<A>(i); // lvalue;
-
+    A tmp(std::forward<int>(i)); // rvalue
+    A tmp2(std::move(i)); // rvalue
+    A tmp3(i); // lvalue
     std::cout << "B" << std::endl;
     auto p3 = make_unique2<B>(1,"hi",2);
 }
